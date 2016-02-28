@@ -36,6 +36,7 @@ sealed abstract class Mutation(override val table: Table, val txid: UUID) extend
   // TODO: populate this field
   val sql = ""
   val database = table.db
+  var tx_idx = 0
   def txAware(txid: UUID): Mutation
 }
 

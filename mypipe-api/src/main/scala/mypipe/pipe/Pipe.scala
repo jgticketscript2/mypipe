@@ -82,7 +82,12 @@ case class Pipe[BinaryLogEvent](id: String, consumer: BinaryLogConsumer[BinaryLo
     }
 
     override def onMutation(consumer: BinaryLogConsumer[BinaryLogEvent], mutations: Seq[Mutation]): Boolean = {
-      producer.queueList(mutations.toList)
+      var i = 0
+      producer.queueList(mutations.map({ mutation ⇒
+        mutation.tx_idx = i
+        i += 1
+        mutation
+      }).toList)
     }
 
     override def onTableAlter(consumer: BinaryLogConsumer[BinaryLogEvent], event: AlterEvent): Boolean = {
