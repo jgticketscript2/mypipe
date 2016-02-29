@@ -9,3 +9,5 @@ run.sh
 *.overrides.conf
 logs/
 conf/
+libs/
+lib_managed/
